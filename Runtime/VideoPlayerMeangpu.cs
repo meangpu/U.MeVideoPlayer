@@ -21,7 +21,8 @@ public class VideoPlayerMeangpu : MonoBehaviour
         _rawImg.texture = _mainTexture;
         theVideo.targetTexture = _mainTexture;
         DisplayFirstImage();
-        SwitchPlayPause();
+        TogglePausePlay();
+        PlayBtn.onClick.AddListener(TogglePausePlay);
     }
 
     void DisplayFirstImage()
@@ -32,7 +33,7 @@ public class VideoPlayerMeangpu : MonoBehaviour
     }
 
 
-    public void SwitchPlayPause()
+    public void TogglePausePlay()
     {
 
         if (isPause) PlayVid();
