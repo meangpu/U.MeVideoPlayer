@@ -42,20 +42,11 @@ public class VideoPlayerMeangpu : MonoBehaviour
         isPause = !isPause;
     }
 
-    void PlayVid()
-    {
-        theVideo.Play();
-    }
+    void PlayVid() => theVideo.Play();
 
-    void PauseVid()
-    {
-        theVideo.Pause();
-    }
+    void PauseVid() => theVideo.Pause();
 
-    void SetBtnVis(bool vis)
-    {
-        playBtnIcon.SetActive(vis);
-    }
+    void SetBtnVis(bool vis) => playBtnIcon.SetActive(vis);
 
 
 }
