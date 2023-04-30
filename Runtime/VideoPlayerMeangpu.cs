@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class VideoFixNew : MonoBehaviour
+public class VideoPlayerMeangpu : MonoBehaviour
 {
     public bool isPause;
     public string videoName;
@@ -16,6 +16,7 @@ public class VideoFixNew : MonoBehaviour
 
     void Start()
     {
+        // read from streaming asset part
         theVideo.url = System.IO.Path.Combine(Application.streamingAssetsPath, videoName);
         _rawImg.texture = _mainTexture;
         theVideo.targetTexture = _mainTexture;
@@ -33,14 +34,10 @@ public class VideoFixNew : MonoBehaviour
 
     public void SwitchPlayPause()
     {
-        if (isPause)
-        {
-            PlayVid();
-        }
-        else
-        {
-            PauseVid();
-        }
+
+        if (isPause) PlayVid();
+        else PauseVid();
+
         SetBtnVis(!isPause);
         isPause = !isPause;
     }
