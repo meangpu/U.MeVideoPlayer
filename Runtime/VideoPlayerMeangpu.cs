@@ -35,7 +35,6 @@ public class VideoPlayerMeangpu : MonoBehaviour
 
     public void TogglePausePlay()
     {
-
         if (isPause) PlayVid();
         else PauseVid();
 
