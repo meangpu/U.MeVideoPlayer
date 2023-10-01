@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -28,6 +29,7 @@ namespace Meangpu.Video
         }
 
         protected abstract void InitVideoPlayer();
+        public abstract void UpdateVideo<T>(T newVideo);
         protected abstract void UpdateUIByVideoPlayState();
 
         protected void DisplayFirstImage()

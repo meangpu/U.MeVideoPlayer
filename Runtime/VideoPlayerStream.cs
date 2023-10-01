@@ -15,5 +15,13 @@ namespace Meangpu.Video
             _rawImg.texture = _mainTexture;
             _videoPlayer.targetTexture = _mainTexture;
         }
+
+        public override void UpdateVideo<T>(T newVideo)
+        {
+            DefaultAsset newVideoAsset = newVideo as DefaultAsset;
+            string videoName = newVideoAsset.name;
+            _videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, videoName + _videoExtension);
+            PlayVideo();
+        }
     }
 }

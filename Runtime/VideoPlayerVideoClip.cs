@@ -1,3 +1,4 @@
+using EasyButtons;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -7,6 +8,12 @@ namespace Meangpu.Video
     {
         [Header("Drag videoClip HERE")]
         [SerializeField] protected VideoClip _video;
+
+        public override void UpdateVideo<T>(T newVideo)
+        {
+            _videoPlayer.clip = newVideo as VideoClip;
+            PlayVideo();
+        }
 
         protected override void InitVideoPlayer()
         {
