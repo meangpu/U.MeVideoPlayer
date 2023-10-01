@@ -1,10 +1,9 @@
-using EasyButtons;
 using UnityEngine;
 using UnityEngine.Video;
 
 namespace Meangpu.Video
 {
-    public class VideoPlayerVideoClip : VideoPlayerWithUI
+    public class VideoPlayerVideoClip : VideoPlayerBase
     {
         [Header("Drag videoClip HERE")]
         [SerializeField] protected VideoClip _video;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Meangpu.Video
 {
-    public class VideoPlayerStream : VideoPlayerWithUI
+    public class VideoPlayerStream : VideoPlayerBase
     {
         [Header("Drag video from 'StreamingAssets' HERE")]
         [SerializeField] DefaultAsset _video;

@@ -1,4 +1,5 @@
 using System;
+using EasyButtons;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -18,6 +19,9 @@ namespace Meangpu.Video
         [SerializeField] protected RenderTexture _mainTexture;
         [SerializeField] protected VideoPlayer _videoPlayer;
 
+        [Header("UIButton optional")]
+        [SerializeField] protected GameObject _playBtnIcon;
+
         void Start()
         {
             InitVideoPlayer();
@@ -25,12 +29,11 @@ namespace Meangpu.Video
             DisplayFirstImage();
             if (_playOnStart) PlayVideo();
             else PauseVideo();
-            UpdateUIByVideoPlayState();
+            UpdateUI();
         }
 
         protected abstract void InitVideoPlayer();
         public abstract void UpdateVideo<T>(T newVideo);
-        protected abstract void UpdateUIByVideoPlayState();
 
         protected void DisplayFirstImage()
         {
@@ -39,12 +42,19 @@ namespace Meangpu.Video
             _videoPlayer.Pause();
         }
 
-        public virtual void TogglePausePlay()
+        [Button]
+        public void TogglePausePlay()
         {
             if (_isPlaying) _videoPlayer.Pause();
             else _videoPlayer.Play();
             _isPlaying = !_isPlaying;
-            UpdateUIByVideoPlayState();
+            UpdateUI();
+        }
+
+        protected void UpdateUI()
+        {
+            if (_playBtnIcon == null) return;
+            _playBtnIcon?.SetActive(!_isPlaying);
         }
 
         public void PlayVideo()
