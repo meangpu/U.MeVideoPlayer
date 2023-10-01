@@ -1,4 +1,5 @@
 ffmpeg use to reduce video size and prevent unity error 
+or can use HandBreak to reduce file size
 
 
 ```
