@@ -7,4 +7,6 @@ ffmpeg -i test.mp4 -profile:v baseline -color_primaries bt709 -color_trc bt709 -
 ```
 
 
+[Movie texture has a glitch at the end of a loop - Questions & Answers - Unity Discussions](https://discussions.unity.com/t/movie-texture-has-a-glitch-at-the-end-of-a-loop/164048/3)
 
+fix video loop problem
