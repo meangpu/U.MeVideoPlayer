@@ -3,7 +3,7 @@ or can use HandBreak to reduce file size
 
 
 ```
-ffmpeg -i noise.mp4 -color_primaries bt709 -color_trc bt709 -colorspace bt709 -color_range pc -vcodec libx264 noise_Vid_new.mp4
+ffmpeg -i test.mp4 -profile:v baseline -color_primaries bt709 -color_trc bt709 -colorspace bt709 -color_range pc -vcodec libx264 test_new.mp4
 ```
 
 
