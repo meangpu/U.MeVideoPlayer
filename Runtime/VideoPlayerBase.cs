@@ -8,7 +8,9 @@ namespace Meangpu.Video
     public abstract class VideoPlayerBase : MonoBehaviour
     {
         // need folder name "StreamingAssets" at Assets root, when use streamingAsset unity won' recognize video type, so it need to use string as name
-        [SerializeField] protected bool _isPause;
+        [SerializeField] protected bool _playOnStart;
+        [SerializeField] protected bool _isLooping;
+        protected bool _isPlaying;
 
         [Header("Texture")]
         [SerializeField] protected RawImage _rawImg;
@@ -18,11 +20,15 @@ namespace Meangpu.Video
         void Start()
         {
             InitVideoPlayer();
+            _videoPlayer.isLooping = _isLooping;
             DisplayFirstImage();
-            TogglePausePlay();
+            if (_playOnStart) PlayVideo();
+            else PauseVideo();
+            UpdateUIByVideoPlayState();
         }
 
         protected abstract void InitVideoPlayer();
+        protected abstract void UpdateUIByVideoPlayState();
 
         protected void DisplayFirstImage()
         {
@@ -33,12 +39,22 @@ namespace Meangpu.Video
 
         public virtual void TogglePausePlay()
         {
-            if (_isPause) PlayVid();
-            else PauseVid();
-            _isPause = !_isPause;
+            if (_isPlaying) _videoPlayer.Pause();
+            else _videoPlayer.Play();
+            _isPlaying = !_isPlaying;
+            UpdateUIByVideoPlayState();
         }
 
-        void PlayVid() => _videoPlayer.Play();
-        void PauseVid() => _videoPlayer.Pause();
+        public void PlayVideo()
+        {
+            _videoPlayer.Play();
+            _isPlaying = true;
+        }
+
+        public void PauseVideo()
+        {
+            _videoPlayer.Pause();
+            _isPlaying = false;
+        }
     }
 }

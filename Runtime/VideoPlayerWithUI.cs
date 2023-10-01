@@ -1,21 +1,20 @@
 using UnityEngine;
-using UnityEngine.UI;
+using EasyButtons;
 
 namespace Meangpu.Video
 {
     public abstract class VideoPlayerWithUI : VideoPlayerBase
     {
         [Header("uiButton")]
-        [SerializeField] Button _playBtn;
-        [SerializeField] Image _playBtnBgImg;
         [SerializeField] GameObject _playBtnIcon;
 
-        void SetBtnVis(bool vis) => _playBtnIcon.SetActive(vis);
-
+        [Button]
         public override void TogglePausePlay()
         {
             base.TogglePausePlay();
-            SetBtnVis(!_isPause);
+            UpdateUIByVideoPlayState();
         }
+
+        protected override void UpdateUIByVideoPlayState() => _playBtnIcon.SetActive(!_isPlaying);
     }
 }
