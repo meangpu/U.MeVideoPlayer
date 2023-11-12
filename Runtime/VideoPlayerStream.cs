@@ -10,14 +10,25 @@ namespace Meangpu.Video
 
         protected override void InitVideoPlayer()
         {
-            _videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, _videoName + _videoExtension);
             _rawImg.texture = _mainTexture;
             _videoPlayer.targetTexture = _mainTexture;
+
+            if (string.IsNullOrWhiteSpace(_videoName))
+            {
+                Debug.Log("<color=red>VideoNameNotSet</color>");
+                return;
+            }
+            _videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, _videoName + _videoExtension);
         }
 
         public override void UpdateVideo<T>(T newVideo)
         {
             string videoName = newVideo as string;
+            if (string.IsNullOrWhiteSpace(videoName))
+            {
+                Debug.Log("<color=red>VideoNameNotSet</color>");
+                return;
+            }
             _videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, videoName + _videoExtension);
             PlayVideo();
         }
