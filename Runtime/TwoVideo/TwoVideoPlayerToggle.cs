@@ -22,6 +22,8 @@ namespace Meangpu.Video
         public override void UpdateVideo<T>(T newVideo, bool PlayVideoAfterUpdate = true)
         {
             _videoPlayer.clip = newVideo as VideoClip;
+            InitAllUI();
+
             if (PlayVideoAfterUpdate) PlayVideo();
         }
 

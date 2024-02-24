@@ -22,6 +22,7 @@ namespace Meangpu.Video
             }
             _videoPlayer.url = videoName;
             if (PlayVideoAfterUpdate) PlayVideo();
+            InitAllUI();
         }
 
     }

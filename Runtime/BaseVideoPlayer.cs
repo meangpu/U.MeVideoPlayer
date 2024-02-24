@@ -2,6 +2,7 @@ using VInspector;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using TMPro;
 
 namespace Meangpu.Video
 {
@@ -20,8 +21,9 @@ namespace Meangpu.Video
 
         [Header("UIButton optional")]
         [SerializeField] protected GameObject _playBtnIcon;
-
-        float nowVideoPlayTime;
+        [SerializeField] protected Slider _playbackSlider;
+        [SerializeField] protected TMP_Text _timestampText;
+        protected bool _isSliderSliding;
 
         void Start()
         {
@@ -29,10 +31,56 @@ namespace Meangpu.Video
             InitVideoPlayer();
             _videoPlayer.isLooping = _isLooping;
             DisplayFirstImage();
+
+            InitAllUI();
+
             if (_playOnStart) PlayVideo();
             else PauseVideo();
-            UpdateUI();
         }
+
+        protected void InitAllUI()
+        {
+            UpdateUI();
+            SetupSliderUI();
+            UpdateTimeText();
+        }
+
+        void SetupSliderUI()
+        {
+            if (_playbackSlider == null) return;
+
+            _playbackSlider.minValue = 0;
+            _playbackSlider.maxValue = 1;
+
+            _playbackSlider.onValueChanged.AddListener(SetVideoToNewTime);
+        }
+
+        private void UpdateTimeText()
+        {
+            if (_timestampText != null)
+            {
+                _timestampText.SetText($"{TimeUtility.ConvertSecondsToMinute((int)_videoPlayer.time)}/{TimeUtility.ConvertSecondsToMinute((int)_videoPlayer.length)}");
+            }
+        }
+
+        public void OnStartDragEvent()
+        {
+            _isSliderSliding = true;
+            PauseNoWithNoUI();
+        }
+
+        public void OnEndDragEvent()
+        {
+            _isSliderSliding = false;
+            PlayVideo();
+        }
+
+        public void SetVideoToNewTime(float value)
+        {
+            _videoPlayer.time = _videoPlayer.length * value;
+        }
+
+        public void SetSliding(bool newState) => _isSliderSliding = newState;
 
         protected abstract void InitVideoPlayer();
         public abstract void UpdateVideo<T>(T newVideo, bool PlayVideoAfterUpdate = true);
@@ -69,18 +117,37 @@ namespace Meangpu.Video
         {
             _videoPlayer.Play();
             _isPlaying = true;
+            UpdateUI();
         }
 
         public void PauseVideo()
         {
             _videoPlayer.Pause();
             _isPlaying = false;
+            UpdateUI();
         }
 
+        public void PauseNoWithNoUI()
+        {
+            _videoPlayer.Pause();
+            _isPlaying = false;
+        }
+
+        [Button]
         public void RestartVideo()
         {
             _videoPlayer.time = 0;
             PlayVideo();
         }
+
+        private void Update()
+        {
+            if (!_isSliderSliding && _playbackSlider != null)
+            {
+                _playbackSlider.SetValueWithoutNotify((float)(_videoPlayer.time / _videoPlayer.length));
+            }
+            UpdateTimeText();
+        }
+
     }
 }

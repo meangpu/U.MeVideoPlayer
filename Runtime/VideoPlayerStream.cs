@@ -28,6 +28,7 @@ namespace Meangpu.Video
             }
             _videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, videoName + _videoExtension);
             if (PlayVideoAfterUpdate) PlayVideo();
+            InitAllUI();
         }
     }
 }

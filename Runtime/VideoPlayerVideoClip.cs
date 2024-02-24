@@ -12,6 +12,7 @@ namespace Meangpu.Video
         {
             _videoPlayer.clip = newVideo as VideoClip;
             if (PlayVideoAfterUpdate) PlayVideo();
+            InitAllUI();
         }
 
         protected override void InitVideoPlayer()
