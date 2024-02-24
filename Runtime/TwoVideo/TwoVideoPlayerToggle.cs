@@ -7,8 +7,17 @@ namespace Meangpu.Video
     public class TwoVideoPlayerToggle : BaseVideoPlayer
     {
         // create for make toggle between video that have same length
-        [Header("Drag videoClip HERE")]
+        [Header("Drag VideoClip HERE")]
         [SerializeField] TwoVideoData _videoData;
+
+        void OnEnable()
+        {
+            ActionTwoVideoPlayer.OnUpdateVideo += UpdateTwoVideoData;
+        }
+        void OnDisable()
+        {
+            ActionTwoVideoPlayer.OnUpdateVideo -= UpdateTwoVideoData;
+        }
 
         public override void UpdateVideo<T>(T newVideo, bool PlayVideoAfterUpdate = true)
         {
@@ -16,11 +25,10 @@ namespace Meangpu.Video
             if (PlayVideoAfterUpdate) PlayVideo();
         }
 
-        public void ReplaceNewVideoWithSameFrame(VideoClip newVideo)
+        public void UpdateTwoVideoData(TwoVideoData newData)
         {
-            long _currentTime = _videoPlayer.frame;
-            _videoPlayer.clip = newVideo;
-            _videoPlayer.frame = _currentTime;
+            _videoData = newData;
+            InitVideoPlayer();
         }
 
         protected override void InitVideoPlayer()
@@ -33,5 +41,13 @@ namespace Meangpu.Video
         {
             ReplaceNewVideoWithSameFrame(_videoData.GetToggleVideo());
         }
+
+        public void ReplaceNewVideoWithSameFrame(VideoClip newVideo)
+        {
+            long _currentTime = _videoPlayer.frame;
+            _videoPlayer.clip = newVideo;
+            _videoPlayer.frame = _currentTime;
+        }
+
     }
 }
