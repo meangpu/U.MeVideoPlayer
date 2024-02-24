@@ -4,12 +4,11 @@ using VInspector;
 
 namespace Meangpu.Video
 {
-    public class VideoPlayerTwoVideoToggle : BaseVideoPlayer
+    public class TwoVideoPlayerToggle : BaseVideoPlayer
     {
         // create for make toggle between video that have same length
         [Header("Drag videoClip HERE")]
-        [SerializeField] protected VideoClip _video1;
-        [SerializeField] protected VideoClip _video2;
+        [SerializeField] TwoVideoData _videoData;
         protected VideoClip _currentVideo;
 
         public override void UpdateVideo<T>(T newVideo, bool PlayVideoAfterUpdate = true)
@@ -19,22 +18,23 @@ namespace Meangpu.Video
             if (PlayVideoAfterUpdate) PlayVideo();
         }
 
+        public void ReplaceNewVideoWithSameFrame(VideoClip newVideo)
+        {
+            _currentVideo = newVideo;
+            long _currentTime = _videoPlayer.frame;
+            _videoPlayer.clip = _currentVideo;
+            _videoPlayer.frame = _currentTime;
+        }
+
         protected override void InitVideoPlayer()
         {
-            UpdateVideo(_video1);
+            UpdateVideo(_videoData.GetNowVideo());
         }
 
         [Button]
         public void ToggleVideo()
         {
-            if (_currentVideo == _video1)
-            {
-                UpdateVideo(_video2);
-            }
-            else if (_currentVideo == _video2)
-            {
-                UpdateVideo(_video1);
-            }
+            ReplaceNewVideoWithSameFrame(_videoData.GetToggleVideo());
         }
     }
 }
