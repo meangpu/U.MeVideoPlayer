@@ -6,23 +6,26 @@ using UnityEngine.Video;
 namespace Meangpu.Video
 {
     [RequireComponent(typeof(VideoPlayer))]
-    public abstract class VideoPlayerBase : MonoBehaviour
+    public abstract class BaseVideoPlayer : MonoBehaviour
     {
         // need folder name "StreamingAssets" at Assets root, when use streamingAsset unity won' recognize video type, so it need to use string as name
         [SerializeField] protected bool _playOnStart;
         [SerializeField] protected bool _isLooping;
         protected bool _isPlaying;
 
-        [Header("Texture")]
+        [Header("Video Source")]
+        [SerializeField] protected VideoPlayer _videoPlayer;
         [SerializeField] protected RawImage _rawImg;
         [SerializeField] protected RenderTexture _mainTexture;
-        [SerializeField] protected VideoPlayer _videoPlayer;
 
         [Header("UIButton optional")]
         [SerializeField] protected GameObject _playBtnIcon;
 
+        float nowVideoPlayTime;
+
         void Start()
         {
+            UpdateVideoTexture();
             InitVideoPlayer();
             _videoPlayer.isLooping = _isLooping;
             DisplayFirstImage();
@@ -33,6 +36,12 @@ namespace Meangpu.Video
 
         protected abstract void InitVideoPlayer();
         public abstract void UpdateVideo<T>(T newVideo);
+
+        protected void UpdateVideoTexture()
+        {
+            _rawImg.texture = _mainTexture;
+            _videoPlayer.targetTexture = _mainTexture;
+        }
 
         protected void DisplayFirstImage()
         {
@@ -66,6 +75,12 @@ namespace Meangpu.Video
         {
             _videoPlayer.Pause();
             _isPlaying = false;
+        }
+
+        public void RestartVideo()
+        {
+            _videoPlayer.time = 0;
+            PlayVideo();
         }
     }
 }

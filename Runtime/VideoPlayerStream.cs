@@ -2,17 +2,14 @@ using UnityEngine;
 
 namespace Meangpu.Video
 {
-    public class VideoPlayerStream : VideoPlayerBase
+    public class VideoPlayerStream : BaseVideoPlayer
     {
-        [Header("Drag video from 'StreamingAssets' HERE")]
+        [Header("type video name from 'StreamingAssets' HERE")]
         [SerializeField] string _videoName;
         [SerializeField] string _videoExtension = ".mp4";
 
         protected override void InitVideoPlayer()
         {
-            _rawImg.texture = _mainTexture;
-            _videoPlayer.targetTexture = _mainTexture;
-
             if (string.IsNullOrWhiteSpace(_videoName))
             {
                 Debug.Log("<color=red>VideoNameNotSet</color>");
