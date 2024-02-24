@@ -10,7 +10,7 @@ namespace Meangpu.Video
     {
         // need folder name "StreamingAssets" at Assets root, when use streamingAsset unity won' recognize video type, so it need to use string as name
         [SerializeField] protected bool _playOnStart;
-        [SerializeField] protected bool _isLooping;
+        [SerializeField] protected bool _isLooping = true;
         protected bool _isPlaying;
 
         [Header("Video Source")]
@@ -35,7 +35,7 @@ namespace Meangpu.Video
         }
 
         protected abstract void InitVideoPlayer();
-        public abstract void UpdateVideo<T>(T newVideo);
+        public abstract void UpdateVideo<T>(T newVideo, bool PlayVideoAfterUpdate = true);
 
         protected void UpdateVideoTexture()
         {

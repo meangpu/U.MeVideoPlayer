@@ -2,17 +2,17 @@ using UnityEngine;
 
 namespace Meangpu.Video
 {
-    public class VideoPlayerYoutube : BaseVideoPlayer
+    public class VideoPlayerURL : BaseVideoPlayer
     {
         [Header("type video URL HERE")]
         [SerializeField] string _videoURL;
 
         protected override void InitVideoPlayer()
         {
-            _videoPlayer.url = _videoURL;
+            UpdateVideo(_videoURL, false);
         }
 
-        public override void UpdateVideo<T>(T newVideo)
+        public override void UpdateVideo<T>(T newVideo, bool PlayVideoAfterUpdate = true)
         {
             string videoName = newVideo as string;
             if (string.IsNullOrWhiteSpace(videoName))
@@ -21,7 +21,7 @@ namespace Meangpu.Video
                 return;
             }
             _videoPlayer.url = videoName;
-            PlayVideo();
+            if (PlayVideoAfterUpdate) PlayVideo();
         }
 
     }

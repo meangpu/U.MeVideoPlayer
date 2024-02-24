@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Video;
+using VInspector;
 
 namespace Meangpu.Video
 {
@@ -9,18 +10,31 @@ namespace Meangpu.Video
         [Header("Drag videoClip HERE")]
         [SerializeField] protected VideoClip _video1;
         [SerializeField] protected VideoClip _video2;
+        protected VideoClip _currentVideo;
 
-        public override void UpdateVideo<T>(T newVideo)
+        public override void UpdateVideo<T>(T newVideo, bool PlayVideoAfterUpdate = true)
         {
-            _videoPlayer.clip = newVideo as VideoClip;
-            PlayVideo();
+            _currentVideo = newVideo as VideoClip;
+            _videoPlayer.clip = _currentVideo;
+            if (PlayVideoAfterUpdate) PlayVideo();
         }
 
         protected override void InitVideoPlayer()
         {
-            _videoPlayer.clip = _video1;
-            _rawImg.texture = _mainTexture;
-            _videoPlayer.targetTexture = _mainTexture;
+            UpdateVideo(_video1);
+        }
+
+        [Button]
+        public void ToggleVideo()
+        {
+            if (_currentVideo == _video1)
+            {
+                UpdateVideo(_video2);
+            }
+            else if (_currentVideo == _video2)
+            {
+                UpdateVideo(_video1);
+            }
         }
     }
 }

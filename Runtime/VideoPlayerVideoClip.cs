@@ -8,15 +8,15 @@ namespace Meangpu.Video
         [Header("Drag videoClip HERE")]
         [SerializeField] protected VideoClip _video;
 
-        public override void UpdateVideo<T>(T newVideo)
+        public override void UpdateVideo<T>(T newVideo, bool PlayVideoAfterUpdate = true)
         {
             _videoPlayer.clip = newVideo as VideoClip;
-            PlayVideo();
+            if (PlayVideoAfterUpdate) PlayVideo();
         }
 
         protected override void InitVideoPlayer()
         {
-            _videoPlayer.clip = _video;
+            UpdateVideo(_video, false);
         }
     }
 }
