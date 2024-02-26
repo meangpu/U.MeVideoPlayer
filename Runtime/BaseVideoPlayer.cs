@@ -139,7 +139,7 @@ namespace Meangpu.Video
             PlayVideo();
         }
 
-        float GetVideoPercent() => (float)(_videoPlayer.time / _videoPlayer.length);
+        protected float GetVideoPercent() => (float)(_videoPlayer.time / _videoPlayer.length);
 
         private void Update()
         {
