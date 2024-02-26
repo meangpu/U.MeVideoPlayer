@@ -6,7 +6,6 @@ using TMPro;
 
 namespace Meangpu.Video
 {
-    [RequireComponent(typeof(VideoPlayer))]
     public abstract class BaseVideoPlayer : MonoBehaviour
     {
         // need folder name "StreamingAssets" at Assets root, when use streamingAsset unity won' recognize video type, so it need to use string as name
