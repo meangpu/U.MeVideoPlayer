@@ -141,7 +141,7 @@ namespace Meangpu.Video
 
         protected float GetVideoPercent() => (float)(_videoPlayer.time / _videoPlayer.length);
 
-        private void Update()
+        protected virtual void Update()
         {
             if (!_isSliderSliding && _playbackSlider != null)
             {
