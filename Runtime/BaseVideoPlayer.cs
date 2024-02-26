@@ -139,11 +139,13 @@ namespace Meangpu.Video
             PlayVideo();
         }
 
+        float GetVideoPercent() => (float)(_videoPlayer.time / _videoPlayer.length);
+
         private void Update()
         {
             if (!_isSliderSliding && _playbackSlider != null)
             {
-                _playbackSlider.SetValueWithoutNotify((float)(_videoPlayer.time / _videoPlayer.length));
+                _playbackSlider.SetValueWithoutNotify(GetVideoPercent());
             }
             UpdateTimeText();
         }
