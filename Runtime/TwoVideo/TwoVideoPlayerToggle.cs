@@ -8,7 +8,7 @@ namespace Meangpu.Video
     {
         // create for make toggle between video that have same length
         [Header("Drag VideoClip HERE")]
-        [SerializeField] TwoVideoData _videoData;
+        [SerializeField] protected TwoVideoData _videoData;
 
         void OnEnable()
         {
