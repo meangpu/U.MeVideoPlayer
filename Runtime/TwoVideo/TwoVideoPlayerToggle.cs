@@ -51,5 +51,7 @@ namespace Meangpu.Video
             _videoPlayer.frame = _currentTime;
         }
 
+        public void SetToVideo1() => _videoData.SetNowIsVideo1();
+        public void SetToVideo2() => _videoData.SetNowIsVideo2();
     }
 }

@@ -30,5 +30,8 @@ namespace Meangpu.Video
             _nowIsVideo1 = !_nowIsVideo1;
             return GetNowVideo();
         }
+
+        public void SetNowIsVideo1() => _nowIsVideo1 = true;
+        public void SetNowIsVideo2() => _nowIsVideo1 = false;
     }
 }
