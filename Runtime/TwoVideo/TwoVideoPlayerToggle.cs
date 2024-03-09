@@ -39,12 +39,12 @@ namespace Meangpu.Video
         }
 
         [Button]
-        public void ToggleVideo()
+        public virtual void ToggleVideo()
         {
             ReplaceNewVideoWithSameFrame(_videoData.GetToggleVideo());
         }
 
-        public void ReplaceNewVideoWithSameFrame(VideoClip newVideo)
+        public virtual void ReplaceNewVideoWithSameFrame(VideoClip newVideo)
         {
             long _currentTime = _videoPlayer.frame;
             _videoPlayer.clip = newVideo;
